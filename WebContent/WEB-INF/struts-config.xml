@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts-config PUBLIC
+"-//Apache Software Foundation//DTD Struts Configuration 1.3//EN"
+"http://jakarta.apache.org/struts/dtds/struts-config_1_3.dtd">
+
+<struts-config>
+
+	<form-beans>
+		<form-bean name="loginform" type="com.model.LoginForm" />
+		<form-bean name="purchaseform" type="com.model.PurchaseForm" />
+		<form-bean name="purchaseabstractform" type="com.model.PurchaseAbstractForm" />
+		<form-bean name="stationabstractform" type="com.model.StationAbstractForm" />
+		<form-bean name="approvestationpurchaseform" type="com.model.ApproveStationPurchaseForm" />
+		<form-bean name="stationform" type="com.model.StationForm" />
+		<form-bean name="serviceform" type="com.model.ServiceForm" />
+		<form-bean name="purchaseinventoryform" type="com.model.PurchaseInventoryForm" />
+		<form-bean name="getpurchaseunitdataform" type="com.model.GetPurchaseUnitDataForm" />
+	</form-beans>
+
+	<action-mappings>
+
+		<action path="/login" type="com.controller.LoginAction" name="loginform">
+			<forward name="govtshippingofficialloginsuccess" path="/govtshippingofficialloginSuccess.jsp" />
+			<forward name="stationLoginSuccess" path="/LoginSuccessStation.jsp" />
+		</action>
+		
+		<action path="/logout" type="com.controller.LogoutAction" >
+			<forward name="success" path="/index.jsp" />
+			<forward name="error" path="/Error.jsp" />
+		</action>
+
+		<!-- Purchase -->
+		<action path="/purchaseMenu" type="com.controller.PurchaseAbstractAction"
+			name="purchaseabstractform" scope="request">
+			<forward name="success" path="/CreatePurchase.jsp" />
+			<forward name="error" path="/purchaseError.jsp" />
+		</action>
+
+		<action path="/purchase" type="com.controller.PurchaseAction"
+			name="purchaseform">
+			<forward name="success" path="/Success.jsp" />
+			<forward name="error" path="/purchaseError.jsp" />
+		</action>
+
+		<!-- This is to view all the purchases -->
+		<action path="/getPurchaseAbstract" type="com.controller.PurchaseAbstractAction"
+			name="purchaseabstractform" scope="request" input="LoginSuccessStation.jsp">
+		</action>
+
+		<!-- This is to view inventory of a particular purchase -->
+		<action path="/viewPurchaseInventory" type="com.controller.ViewPurchaseInventoryAction"
+			name="purchaseinventoryform" scope="request">
+			<forward name="success" path="/InventoryDisplay.jsp" />
+			<forward name="error" path="/Error.jsp" />
+		</action>
+
+		<!-- this is open ApprovePurchase.jsp page and view all purchase -->
+		<action path="/viewApprovePurchase" type="com.controller.PurchaseAbstractAction"
+			name="purchaseabstractform" scope="request">
+			<forward name="success" path="/ApprovePurchase.jsp" />
+		</action>
+
+		<!-- <action path="/getStationPurchase" type="com.controller.StationPurchaseAction" 
+			name="stationpurchaseform" input="/ApprovePurchase.jsp"> </action> -->
+
+		<action path="/approveStationPurchase" type="com.controller.ApproveStationPurchaseAction"
+			name="approvestationpurchaseform">
+			<forward name="success" path="/Success.jsp" />
+		</action>
+		<!-- Purchase -->
+
+
+		<!-- Station -->
+		<action path="/station" type="com.controller.StationAbstractAction"
+			name="stationabstractform" scope="request" input="/CreateServiceStation.jsp">
+			<forward name="success" path="/CreateServiceStation.jsp" /> 
+			<forward name="error" path="/Error.jsp" />
+		</action>
+		<action path="/createStation" type="com.controller.StationAction"
+			name="stationform" >
+			<forward name="success" path="/Success.jsp" /> 
+			<forward name="error" path="/Error.jsp" />
+		</action>
+		<action path="/getStationAbstract" type="com.controller.StationAbstractAction"
+			name="stationabstractform" scope="request" input="/CreatServiceStation.jsp">
+		</action>
+		<!-- Station -->
+
+
+		<!-- Service -->
+
+		<action path="/createServiceScreen" type="com.controller.GetPurchaseUnitDataAction"
+			name="getpurchaseunitdataform" scope="request">
+			<forward name="success" path="/CreateServiceScreen.jsp" />
+			<forward name="error" path="/purchaseError.jsp" />
+		</action>
+
+		<action path="/createService" type="com.controller.ServiceAction"
+			name="serviceform" input="/CreateServiceScreen.jsp">
+			<!--<forward name="success" path="/purchaseSuccess.jsp" /> -->
+			<forward name="error" path="/Error.jsp" />
+		</action>
+		<action path="/viewServiceCertificate" type="org.apache.struts.actions.ForwardAction"
+			parameter="/ViewServiceCertificate.jsp">
+		</action>
+		<!-- Service -->
+
+		<action path="/robReport" type="org.apache.struts.actions.ForwardAction"
+			parameter="/ROBReport.jsp">
+		</action>
+
+	</action-mappings>
+
+</struts-config>
